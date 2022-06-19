@@ -1,0 +1,16 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+
+  {% if title %}
+  <title>Neighbours - {{title}}</title>
+  {% else %}
+    <title> Neighbours</title>
+  {% endif %}
+
+</head>
+<body>
+    {% comment %} {% block content %} <h1>News for {{date|date:"l d-F Y"}}</h1> {%endblock%} {% endcomment %}
+</body>
+</html>

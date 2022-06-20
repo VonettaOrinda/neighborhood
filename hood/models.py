@@ -1,9 +1,10 @@
 from __future__ import unicode_literals
-import numpy as np
+# from tkinter import CASCADE
+# import numpy as np
 from django.db.models.signals import post_save
 from django.db import models
 from django.contrib.auth.models import User
-from django.db.models.sql.datastructures import Join
+# from django.db.models.sql.datastructures import Join
 
 
 class tags(models.Model):
@@ -35,7 +36,7 @@ class Image(models.Model):
     name = models.CharField(max_length=40)
     user = models.ForeignKey(User, on_delete=models.CASCADE, blank=True, related_name="images")
     description = models.TextField()
-    location = models.ForeignKey(Location, null=True)
+    location = models.CharField(max_length=40)
     tags = models.ManyToManyField(tags, blank=True)
     likes = models.IntegerField(default=0)
     comments = models.TextField(blank=True)
@@ -83,16 +84,16 @@ class Image(models.Model):
 
 class Neighbourhood(models.Model):
     CITY_CHOICES = (
-        ('London', 'London'),
-        ('Liverpool', 'Liverpool'),
-        ('Sheffield', 'Sheffield'),
-        ('Manchester', 'Manchester'),
-        ('Leeds', 'Leeds'),
-        ('Nottingham', 'Nottingham'),
-        ('Brighton', 'Brighton'),
-        ('Bristol', 'Bristol'),
-        ('Oxford', 'Oxford'),
-        ('Cambridge', 'Cambridge'),
+        ('Kawangware', 'Kawangware'),
+        ('Umoja', 'Umoja'),
+        ('Buruburu', 'Buruburu'),
+        ('Kilimani', 'Kilimani'),
+        ('Kileleshwa', 'Kileleshwa'),
+        ('Runda', 'Runda'),
+        ('Imara Daima', 'Imara Daima'),
+        ('Syokimau', 'Syokimau'),
+        ('Riverside drive', 'Riverside drive'),
+        ('Ruaka', 'Ruaka'),
 
     )
 
@@ -186,20 +187,20 @@ class Project(models.Model):
     user = models.ForeignKey(User, on_delete=models.CASCADE,related_name="neighbourhoodproject",null=True,blank=True)
     neighbourhood = models.ForeignKey(Neighbourhood, on_delete=models.CASCADE,related_name="neighbourhoodproject",null=True,blank=True)
 
-    def average_design(self):
-        design_ratings = list(map(lambda x: x.design_rating, self.reviews.all()))
-        return np.mean(design_ratings)
+    # def average_design(self):
+    #     design_ratings = list(map(lambda x: x.design_rating, self.reviews.all()))
+    #     return np.mean(design_ratings)
 
-    def average_usability(self):
-        usability_ratings = list(map(lambda x: x.usability_rating, self.reviews.all()))
-        return np.mean(usability_ratings)
+    # def average_usability(self):
+    #     usability_ratings = list(map(lambda x: x.usability_rating, self.reviews.all()))
+    #     return np.mean(usability_ratings)
 
-    def average_content(self):
-        content_ratings = list(map(lambda x: x.content_rating, self.reviews.all()))
-        return np.mean(content_ratings)
+    # def average_content(self):
+    #     content_ratings = list(map(lambda x: x.content_rating, self.reviews.all()))
+    #     return np.mean(content_ratings)
 
-    def save_project(self):
-        self.save()
+    # def save_project(self):
+    #     self.save()
 
     @classmethod
     def delete_project_by_id(cls, id):
@@ -236,7 +237,7 @@ class Profile(models.Model):
     bio = models.TextField(max_length=200, null=True, blank=True, default="bio")
     profile_pic = models.ImageField(upload_to='picture/', null=True, blank=True, default=0)
     user = models.OneToOneField(User, on_delete=models.CASCADE, null=True, related_name="profile")
-    project = models.ForeignKey(Project, null=True)
+    project = models.ForeignKey(Project, on_delete=models.CASCADE,null=True)
     email= models.TextField(max_length=200, null=True, blank=True, default=0)
     neighbourhood_id = models.ForeignKey(Neighbourhood, on_delete=models.CASCADE,related_name="neighbourhood",null=True,blank=True)
 

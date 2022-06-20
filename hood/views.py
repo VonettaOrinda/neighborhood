@@ -1,13 +1,14 @@
 from __future__ import unicode_literals
 from django.shortcuts import render, redirect, get_object_or_404
 from .models import *
-from django.http  import HttpResponse, Http404, HttpResponseRedirect, JsonResponse
+from django.http  import  Http404, HttpResponseRedirect, JsonResponse
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth.models import User
 from .forms import *
 from django.contrib import messages
 from .email import send_welcome_email
 from django.urls import reverse
+from django.core.exceptions import ObjectDoesNotExist
 
 
 @login_required(login_url='/accounts/login/')
@@ -58,7 +59,7 @@ def business(request, id):
     try:
         business = Business.objects.get(pk = id)
 
-    except DoesNotExist:
+    except ObjectDoesNotExist:
         raise Http404()
 
     return render(request, 'all-hood/business.html', {"business": business})
@@ -70,7 +71,7 @@ def neighbourhood(request, id):
         neighbourhood = Neighbourhood.objects.get(pk = id)
         business = Business.objects.filter(neighbourhood_id=neighbourhood)
 
-    except DoesNotExist:
+    except ObjectDoesNotExist:
         raise Http404()
 
     return render(request, 'all-hood/neighbourhood.html', {"neighbourhood": neighbourhood, 'business':business})
@@ -81,7 +82,7 @@ def project(request, id):
     try:
         project = Project.objects.get(pk = id)
 
-    except DoesNotExist:
+    except ObjectDoesNotExist:
         raise Http404()
 
     current_user = request.user

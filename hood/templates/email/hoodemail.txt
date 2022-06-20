@@ -1,0 +1,4 @@
+Hello {{name}}
+
+Welcome to the Hood
+You will be able to get updates on everything that happens in this area!

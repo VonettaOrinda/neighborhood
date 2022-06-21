@@ -14,6 +14,8 @@ from django.contrib.auth.models import User
 
 
 @login_required(login_url='/accounts/login/')
+
+
 def home (request):
     # Display all projects here:
 

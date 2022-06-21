@@ -7,9 +7,10 @@ from django.conf.urls.static import static
 
 urlpatterns = [
     
-
-    path('', views.home, name='home'),
+    
+    
     path('accounts/', include('django.contrib.auth.urls')),
+    path('', views.home, name='home'),
     re_path(r'search/', views.search_businesses, name='search_businesses'),
     re_path(r'^join/(\d+)', views.join, name='join'),
     re_path(r'^exit/(\d+)', views.exit, name='exit'),
@@ -31,6 +32,6 @@ urlpatterns = [
     
 ]
 
-if settings.DEBUG:
-    urlpatterns+= static(settings.MEDIA_URL, document_root = settings.MEDIA_ROOT)
+# if settings.DEBUG:
+#     urlpatterns+= static(settings.MEDIA_URL, document_root = settings.MEDIA_ROOT)
 

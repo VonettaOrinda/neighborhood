@@ -5,14 +5,14 @@
 <link href="https://fonts.googleapis.com/css?family=Charmonman|Dancing+Script|Kodchasan|Spirax|Abril+Fatface" rel="stylesheet">
 
 <div class="container">
-  <div class="jumbotron text-center" style="background-color:black;">
+  <div class="jumbotron text-center" style="background-color:brown;">
     <h1 class="h1" style="font-family: 'Dosis', cursive; color:white;font-size:70px;">Neighbourhood</h1>
 
   </div>
 </div>
 
 <div class="container" style="background-color:black;">
-  <div class="card mb-3 border border-info" style="width:40rem;background-color:black;">
+  <div class="card mb-3 border border-info" style="width:40rem;background-color:brown;">
     <div class="card-body ">
 
       <h5 class="card-title border-bottom" style="font-family: 'Dosis', sans-serif;color:white;"><strong>Neighbourhood Name:</strong>
@@ -37,9 +37,9 @@
 
 <div class="jumbotron text-center mt-0 mb-0" style="background-color:black;font-family: 'Dosis', sans-serif;">
   <h2 style="text-align:center;font-size:30px;color:WHITE;"><strong>BUSINESSES IN THIS NEIGHBOURHOOD</strong></h2>
-      <div class="card-deck d-flex" style="background-color:black;">
+      <div class="card-deck d-flex" style="background-color:brown;">
          {% for business in neighbourhood.neighbourhoodbusiness.all %}
-        <div class="card w-33 border border-info" style="background-color:black;">
+        <div class="card w-33 border border-info" style="background-color:brown;">
             <div class="card-title border-bottom">
               <p style="font-size:20px;colour:white"> <a href="{% url 'business' business.id %}"><strong>Business Name:</strong>
 

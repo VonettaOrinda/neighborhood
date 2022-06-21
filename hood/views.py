@@ -9,6 +9,8 @@ from django.contrib import messages
 from .email import send_welcome_email
 from django.urls import reverse
 from django.core.exceptions import ObjectDoesNotExist
+from django.contrib.auth import login, authenticate
+from django.contrib.auth.models import User
 
 
 @login_required(login_url='/accounts/login/')
@@ -52,6 +54,8 @@ def home (request):
     return render(request, 'all-hood/home.html', {'projects':projects, 'letterForm':form,
                                           'businesses':businesses,
                                           'neighbourhoods':neighbourhoods})
+
+
 
 
 def business(request, id):
@@ -106,7 +110,7 @@ def project(request, id):
 
         # return HttpResponseRedirect(reverse('image', args=(image.id,)))
 
-    return render(request, 'all-hood.image.html', {"project": project,
+    return render(request, 'all-hood/image.html', {"project": project,
                                           'form':form,
                                           'comments':comments,
                                           'latest_review_list':latest_review_list})
@@ -120,7 +124,7 @@ def new_image(request):
             image = form.save(commit=False)
             image.user = current_user
             image.save()
-        return redirect('homePage')
+        return redirect('home')
 
     else:
         form = NewImageForm()
@@ -135,26 +139,12 @@ def new_business(request):
             business = form.save(commit=False)
             business.user = current_user
             business.save()
-        return redirect('homePage')
+        return redirect('home')
 
     else:
         form = NewBusinessForm()
     return render(request, 'registration/new_business.html', {"form": form})
 
-@login_required(login_url='/accounts/login/')
-def new_business(request):
-    current_user = request.user
-    if request.method == 'POST':
-        form = NewBusinessForm(request.POST, request.FILES)
-        if form.is_valid():
-            business = form.save(commit=False)
-            business.user = current_user
-            business.save()
-        return redirect('homePage')
-
-    else:
-        form = NewBusinessForm()
-    return render(request, 'registration/new_business.html', {"form": form})
 
 
 @login_required(login_url='/accounts/login/')
@@ -166,11 +156,13 @@ def new_project(request):
             project = form.save(commit=False)
             project.user = current_user
             project.save()
-        return redirect('homePage')
+        return redirect('home')
 
     else:
         form = NewProjectForm()
     return render(request, 'registration/new_project.html', {"form": form})
+
+
 
 
 @login_required(login_url='/accounts/login/')
@@ -182,7 +174,7 @@ def new_neighbourhood(request):
             neighbourhood = form.save(commit=False)
             neighbourhood.user = current_user
             neighbourhood.save()
-        return redirect('homePage')
+        return redirect('home')
 
     else:
         form = CreateNeighbourhoodForm()
@@ -206,7 +198,7 @@ def join(request, id):
         Join(user_id=request.user, neighbourhood_id=neighbourhood).save()
 
     print("success")
-    return redirect('homePage')
+    return redirect('home')
 
 
 @login_required(login_url='/accounts/login/')
@@ -224,14 +216,14 @@ def exit(request, id):
         Join(user_id=request.user, neighbourhood_id=neighbourhood).delete()
 
     print("success")
-    return redirect('homePage')
+    return redirect('home')
 
 # Viewing a single picture
 
 def user_list(request):
     user_list = User.objects.all()
     context = {'user_list': user_list}
-    return render(request, 'user_list.html', context)
+    return render(request, 'all-hood/user_list.html', context)
 
 @login_required(login_url='/accounts/login/')
 def edit_profile(request):
@@ -244,7 +236,7 @@ def edit_profile(request):
             image = form.save(commit=False)
             image.user = current_user
             image.save()
-        return redirect('homePage')
+        return redirect('home')
 
     else:
         form = UpdatebioForm()
@@ -272,7 +264,7 @@ def search_businesses(request):
 
     else:
         message = "You haven't searched for any business"
-        return render(request, 'search.html', {"message": message})
+        return render(request, 'all-hood/search.html', {"message": message})
 
 
 @login_required(login_url='/accounts/login/')
@@ -296,10 +288,7 @@ def individual_profile_page(request, username):
                                                                   'profile':profile,
                                                                   'user':user,
                                                                   'username': username})
-# def review_list(request):
-#     latest_review_list = Review.objects.all()
-#     context = {'latest_review_list':latest_review_list}
-#     return render(request, 'all-hood/review_list.html', context)
+
 
 
 def review_detail(request, review_id):

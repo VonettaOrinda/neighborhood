@@ -17,11 +17,16 @@ from django.contrib import admin
 from django.urls import path,include
 from django.conf import settings
 from django.conf.urls.static import static
+from django.contrib.auth import views as auth_views, views
 
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('',include('hood.urls')),
-    # path('accounts/',include('registration.backends.simple.urls')),
+    path('accounts/',include('registration.backends.simple.urls')),
+    path('tinymce/',include('tinymce.urls')),
+    path('accounts/',include('django.contrib.auth.urls')),
+    path('logout/',auth_views.logout_then_login),
+    
 ]
 
 if settings.DEBUG:

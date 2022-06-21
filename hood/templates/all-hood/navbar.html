@@ -4,9 +4,9 @@
 <nav class="navbar navbar-dark mb-0 mt-0 border-bottom " id="nav">
   <div class="container-fluid">
     <div class="navbar-header">
-        <a class="navbar-brand" href="{% url 'homePage' %}"><img src="https://png.icons8.com/doodle/50/000000/home.png" style="height:15px;width:15px;">
+        <a class="navbar-brand" href="{% url 'home' %}"><img src="https://png.icons8.com/doodle/50/000000/home.png" style="height:15px;width:15px;">
       </a>
-      <a class="navbar-brand" id="victor" href="{% url 'homePage' %}">HOOD
+      <a class="navbar-brand" id="victor" href="{% url 'home' %}">HOOD
       </a>
     </div>
     <div>
@@ -31,9 +31,9 @@
       <li style="font-family: 'Dosis', sans-serif;font-size:13px;">
         <a href="{% url 'individual_profile_page' user.id %}">Profile</a>
       </li>
-                   <li style="font-family: 'Dosis', sans-serif; font-size:13px;">
-                    <a href="{%url 'new_project'%}">Post News</a>
-                  </li>
+                   {% comment %} <li style="font-family: 'Dosis', sans-serif; font-size:13px;">
+                    <a href="{%url 'new_project'%}">Post News</a> {% endcomment %}
+                  {% comment %} </li> {% endcomment %}
       <li style="font-family: 'Dosis', sans-serif;font-size:13px;">
                     <a href="{%url 'new_neighbourhood'%}">Create Neighbourhood</a>
                   </li>

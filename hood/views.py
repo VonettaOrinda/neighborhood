@@ -12,7 +12,7 @@ from django.core.exceptions import ObjectDoesNotExist
 
 
 @login_required(login_url='/accounts/login/')
-def home_projects (request):
+def home (request):
     # Display all projects here:
 
     if request.GET.get('search_term'):
@@ -46,7 +46,7 @@ def home_projects (request):
             recipient.save()
             send_welcome_email(name, email)
 
-            HttpResponseRedirect('home_projects')
+            HttpResponseRedirect('home')
 
 
     return render(request, 'all-hood/home.html', {'projects':projects, 'letterForm':form,
@@ -296,10 +296,10 @@ def individual_profile_page(request, username):
                                                                   'profile':profile,
                                                                   'user':user,
                                                                   'username': username})
-def review_list(request):
-    latest_review_list = Review.objects.all()
-    context = {'latest_review_list':latest_review_list}
-    return render(request, 'all-hood/review_list.html', context)
+# def review_list(request):
+#     latest_review_list = Review.objects.all()
+#     context = {'latest_review_list':latest_review_list}
+#     return render(request, 'all-hood/review_list.html', context)
 
 
 def review_detail(request, review_id):
@@ -307,10 +307,7 @@ def review_detail(request, review_id):
     return render(request, 'all-hood/review_detail.html', {'review': review})
 
 
-def project_list(request):
-    project_list = Project.objects.order_by('-title')
-    context = {'project_list':project_list}
-    return render(request, 'all-hood/project_list.html', context)
+
 
 # AJAX functionality
 
